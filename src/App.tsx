@@ -11,9 +11,16 @@ const createGameCards = (): TCardList => {
   return pairs
 }
 
+const shuffleCards = (arr: TCardList): TCardList => {
+  // copy first so we don't mutate the original
+  return [...arr].sort(() => Math.random() - 0.5)
+}
+
 const App = () => {
   // 1) React state: the single source of truth for the cards on screen
-  const [gameCards, setGameCards] = useState<TCardList>(createGameCards())
+  const [gameCards, setGameCards] = useState<TCardList>(
+  shuffleCards(createGameCards())
+)
 
   // 2) Called when a card is clicked. It flips exactly that card.
   const handleCardClick = (clickedCard: TCard) => {
@@ -30,17 +37,23 @@ const App = () => {
   
 
   return (
-    <div className="main_section">
-      <h1>Memory Game</h1>
+  <div className="main_section">
+    <h1>Memory Game</h1>
 
-      <div className="card_container">
-        {gameCards.map((card: TCard) => (
-          // 3) We now pass the real click handler (not an empty fn)
-          <CardComp key={card.id} card={card} clickProp={handleCardClick} />
-        ))}
-      </div>
+    <button
+      onClick={() => setGameCards(shuffleCards(createGameCards()))}
+      className="new_game_btn"
+    >
+      🔄 New Game
+    </button>
+
+    <div className="card_container">
+      {gameCards.map((card: TCard) => (
+        <CardComp key={card.id} card={card} clickProp={handleCardClick} />
+      ))}
     </div>
-  )
+  </div>
+)
 }
 
 export default App
