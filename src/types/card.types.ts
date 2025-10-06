@@ -6,4 +6,4 @@ export type TCard = {
   matched: boolean
 }
 
-export type TcardList = TCard[]
+export type TCardList = TCard[]
