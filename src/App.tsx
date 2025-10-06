@@ -3,9 +3,17 @@ import CardComp from "./components/CardComp"
 import type { TCard, TCardList } from "./types/card.types"
 import cards from "./data/cards.json"
 
+const createGameCards = (): TCardList => {
+  const pairs = (cards as TCard[]).flatMap((card) => [
+    { ...card, id: card.id },          // first copy
+    { ...card, id: card.id + 100 },    // second copy (unique id)
+  ])
+  return pairs
+}
+
 const App = () => {
   // 1) React state: the single source of truth for the cards on screen
-  const [gameCards, setGameCards] = useState<TCardList>(cards as TCardList)
+  const [gameCards, setGameCards] = useState<TCardList>(createGameCards())
 
   // 2) Called when a card is clicked. It flips exactly that card.
   const handleCardClick = (clickedCard: TCard) => {
@@ -18,6 +26,8 @@ const App = () => {
       )
     )
   }
+
+  
 
   return (
     <div className="main_section">
