@@ -84,7 +84,7 @@ export default function App() {
   return (
     <div className="main_section">
       <h1>Memory Game</h1>
-      <p>Number of moves: {moves}</p>
+      <p className="moves">Number of moves: {moves}</p>
       <div className="card_container">
         {gameCards.map((card) => (
           <CardComp key={card.id} card={card} clickProp={handleCardClick} />
